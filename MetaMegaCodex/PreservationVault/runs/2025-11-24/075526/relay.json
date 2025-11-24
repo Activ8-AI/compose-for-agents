@@ -1,0 +1,86 @@
+{
+  "execution": {
+    "agents": [
+      {
+        "echo": {
+          "topic": "compliance"
+        },
+        "interchangeable": true,
+        "model": "charter-standard",
+        "name": "advisor_agent",
+        "payload_digest": "d4869723a220992bbac5cf6a1fd44276ab6de92f571545cb13479983e57b5d2a",
+        "status": "completed",
+        "summary": "advisor_agent (charter-standard) processed persona 'kim' in role 'advisor' using payload digest d4869723"
+      }
+    ],
+    "payload": {
+      "topic": "compliance"
+    },
+    "persona": "kim",
+    "provenance": {
+      "generated_at": "2025-11-24T07:55:26.668064+00:00",
+      "hash": "38ab24ec9903b0d9acde3ad40eaa57d40f27f8f685d912a4b91e59d3231d5477",
+      "normalization": "json",
+      "policies": [
+        "Honor stack agent order while keeping outputs deterministic",
+        "Attach provenance hash for every run"
+      ]
+    },
+    "role": "advisor",
+    "stack_id": "kim_watson_stack",
+    "stack_version": "1.0.0"
+  },
+  "invariants": [
+    {
+      "dimension": "composable",
+      "enforcement": [
+        "Stacks defined in YAML, drop-in ready",
+        "Inputs/outputs normalized to JSON"
+      ],
+      "passes": true
+    },
+    {
+      "dimension": "fungible",
+      "enforcement": [
+        "Agents interchangeable across roles",
+        "Evaluation scores normalized"
+      ],
+      "passes": true
+    },
+    {
+      "dimension": "modular",
+      "enforcement": [
+        "Executor, logger, relay, digest independent",
+        "Policies scoped per module"
+      ],
+      "passes": true
+    },
+    {
+      "dimension": "stackable",
+      "enforcement": [
+        "Pipeline: relay \u2192 executor \u2192 logger \u2192 evaluation \u2192 digest",
+        "Weekly digest aggregates per-run evaluations"
+      ],
+      "passes": true
+    }
+  ],
+  "meta": {
+    "persona": "kim",
+    "relay_version": "1.0.0",
+    "role": "advisor",
+    "run_dir": "PreservationVault/runs/2025-11-24/075526",
+    "timestamp": "2025-11-24T07:55:26.668087+00:00"
+  },
+  "payload": {
+    "topic": "compliance"
+  },
+  "policies": [
+    "Select stacks by persona + role routing metadata",
+    "Normalize inbound payload JSON before execution"
+  ],
+  "stack": {
+    "id": "kim_watson_stack",
+    "purpose": "Persona advisory",
+    "version": "1.0.0"
+  }
+}

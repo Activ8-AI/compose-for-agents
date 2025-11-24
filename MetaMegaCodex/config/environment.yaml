@@ -1,0 +1,5 @@
+environment:
+  name: "meta-mega-codex"
+  timezone: "UTC"
+  retention_days: 30
+  relay_endpoint: "local"

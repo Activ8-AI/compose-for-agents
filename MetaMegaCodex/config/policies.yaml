@@ -1,0 +1,13 @@
+policies:
+  relay:
+    - "Select stacks by persona + role routing metadata"
+    - "Normalize inbound payload JSON before execution"
+  executor:
+    - "Honor stack agent order while keeping outputs deterministic"
+    - "Attach provenance hash for every run"
+  logger:
+    - "Record environment fingerprints without sensitive values"
+    - "Persist run manifest under PreservationVault"
+  digest:
+    - "Aggregate scores across runs per week"
+    - "Highlight charter misalignments above severity threshold"

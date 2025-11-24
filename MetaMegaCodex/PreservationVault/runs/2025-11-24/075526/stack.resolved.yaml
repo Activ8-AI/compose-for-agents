@@ -1,0 +1,30 @@
+cfms_invariants:
+  composable:
+    enforcement:
+    - Stacks defined in YAML, drop-in ready
+    - Inputs/outputs normalized to JSON
+  fungible:
+    enforcement:
+    - Agents interchangeable across roles
+    - Evaluation scores normalized
+  modular:
+    enforcement:
+    - Executor, logger, relay, digest independent
+    - Policies scoped per module
+  stackable:
+    enforcement:
+    - "Pipeline: relay \u2192 executor \u2192 logger \u2192 evaluation \u2192 digest"
+    - Weekly digest aggregates per-run evaluations
+meta:
+  id: kim_watson_stack
+  version: 1.0.0
+  purpose: Persona advisory
+routing:
+  persona: kim
+  role: advisor
+agents:
+- name: advisor_agent
+  model: charter-standard
+  outputs:
+  - format: json
+    normalize: true

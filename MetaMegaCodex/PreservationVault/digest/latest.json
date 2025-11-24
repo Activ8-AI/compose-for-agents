@@ -1,0 +1,49 @@
+{
+  "average_scores": {
+    "actionability": 0.432,
+    "charter_alignment": 1.0,
+    "clarity": 0.7,
+    "compliance": 0.933
+  },
+  "generated_at": "2025-11-24T07:56:09.153820+00:00",
+  "runs": [
+    {
+      "persona": "kim",
+      "run_path": "runs/2025-11-24/075310",
+      "scores": {
+        "actionability": 0.404,
+        "charter_alignment": 1.0,
+        "clarity": 0.7,
+        "compliance": 0.8
+      },
+      "stack_id": "kim_watson_stack",
+      "timestamp": "2025-11-24T07:53:10+00:00"
+    },
+    {
+      "persona": "kim",
+      "run_path": "runs/2025-11-24/075526",
+      "scores": {
+        "actionability": 0.446,
+        "charter_alignment": 1.0,
+        "clarity": 0.7,
+        "compliance": 1.0
+      },
+      "stack_id": "kim_watson_stack",
+      "timestamp": "2025-11-24T07:55:26+00:00"
+    },
+    {
+      "persona": "kim",
+      "run_path": "runs/2025-11-24/075609",
+      "scores": {
+        "actionability": 0.446,
+        "charter_alignment": 1.0,
+        "clarity": 0.7,
+        "compliance": 1.0
+      },
+      "stack_id": "kim_watson_stack",
+      "timestamp": "2025-11-24T07:56:09+00:00"
+    }
+  ],
+  "runs_considered": 3,
+  "window_days": 7
+}

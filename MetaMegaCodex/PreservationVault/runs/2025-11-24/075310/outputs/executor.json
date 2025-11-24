@@ -1,0 +1,24 @@
+{
+  "agents": [
+    {
+      "echo": {},
+      "interchangeable": true,
+      "model": "charter-standard",
+      "name": "advisor_agent",
+      "payload_digest": "6748783e9c22eaa12f126623e91b01599dfa5f99f812a6f76b9dace464173188",
+      "status": "completed",
+      "summary": "advisor_agent (charter-standard) processed persona 'kim' in role 'advisor' using payload digest 6748783e"
+    }
+  ],
+  "payload": {},
+  "persona": "kim",
+  "provenance": {
+    "generated_at": "2025-11-24T07:53:11.025156+00:00",
+    "hash": "e2ddace6179e1d7788fcc08ec2f2c0e41ac92f04de33f557684bda4b08e666b5",
+    "normalization": "json",
+    "policies": []
+  },
+  "role": "advisor",
+  "stack_id": "kim_watson_stack",
+  "stack_version": "1.0.0"
+}

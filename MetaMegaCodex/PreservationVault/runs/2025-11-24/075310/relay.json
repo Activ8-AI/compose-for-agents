@@ -1,0 +1,74 @@
+{
+  "execution": {
+    "agents": [
+      {
+        "echo": {},
+        "interchangeable": true,
+        "model": "charter-standard",
+        "name": "advisor_agent",
+        "payload_digest": "6748783e9c22eaa12f126623e91b01599dfa5f99f812a6f76b9dace464173188",
+        "status": "completed",
+        "summary": "advisor_agent (charter-standard) processed persona 'kim' in role 'advisor' using payload digest 6748783e"
+      }
+    ],
+    "payload": {},
+    "persona": "kim",
+    "provenance": {
+      "generated_at": "2025-11-24T07:53:11.025156+00:00",
+      "hash": "e2ddace6179e1d7788fcc08ec2f2c0e41ac92f04de33f557684bda4b08e666b5",
+      "normalization": "json",
+      "policies": []
+    },
+    "role": "advisor",
+    "stack_id": "kim_watson_stack",
+    "stack_version": "1.0.0"
+  },
+  "invariants": [
+    {
+      "dimension": "composable",
+      "enforcement": [
+        "Stacks defined in YAML, drop-in ready",
+        "Inputs/outputs normalized to JSON"
+      ],
+      "passes": true
+    },
+    {
+      "dimension": "fungible",
+      "enforcement": [
+        "Agents interchangeable across roles",
+        "Evaluation scores normalized"
+      ],
+      "passes": true
+    },
+    {
+      "dimension": "modular",
+      "enforcement": [
+        "Executor, logger, relay, digest independent",
+        "Policies scoped per module"
+      ],
+      "passes": true
+    },
+    {
+      "dimension": "stackable",
+      "enforcement": [
+        "Pipeline: relay \u2192 executor \u2192 logger \u2192 evaluation \u2192 digest",
+        "Weekly digest aggregates per-run evaluations"
+      ],
+      "passes": true
+    }
+  ],
+  "meta": {
+    "persona": "kim",
+    "relay_version": "1.0.0",
+    "role": "advisor",
+    "run_dir": "PreservationVault/runs/2025-11-24/075310",
+    "timestamp": "2025-11-24T07:53:11.025175+00:00"
+  },
+  "payload": {},
+  "policies": [],
+  "stack": {
+    "id": "kim_watson_stack",
+    "purpose": "Persona advisory",
+    "version": "1.0.0"
+  }
+}

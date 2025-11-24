@@ -1,0 +1,23 @@
+[
+  {
+    "environment": {
+      "name": "meta-mega-codex",
+      "relay_endpoint": "local",
+      "retention_days": 30,
+      "timezone": "UTC"
+    },
+    "persona": "kim",
+    "policies": [],
+    "relay_artifact": "relay.json",
+    "relay_sha": "96053ad1c78d523c5421134e645a56caa71b47d6b9608b4b9b0fcbd75c515a5e",
+    "role": "advisor",
+    "runtime": {
+      "machine": "x86_64",
+      "python_version": "3.12.3",
+      "release": "6.1.147",
+      "system": "Linux"
+    },
+    "stack_id": "kim_watson_stack",
+    "timestamp": "2025-11-24T07:53:11.067048+00:00"
+  }
+]

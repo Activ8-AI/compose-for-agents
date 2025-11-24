@@ -1,0 +1,31 @@
+{
+  "agents": [
+    {
+      "echo": {
+        "topic": "compliance"
+      },
+      "interchangeable": true,
+      "model": "charter-standard",
+      "name": "advisor_agent",
+      "payload_digest": "d4869723a220992bbac5cf6a1fd44276ab6de92f571545cb13479983e57b5d2a",
+      "status": "completed",
+      "summary": "advisor_agent (charter-standard) processed persona 'kim' in role 'advisor' using payload digest d4869723"
+    }
+  ],
+  "payload": {
+    "topic": "compliance"
+  },
+  "persona": "kim",
+  "provenance": {
+    "generated_at": "2025-11-24T07:54:05.291447+00:00",
+    "hash": "38ab24ec9903b0d9acde3ad40eaa57d40f27f8f685d912a4b91e59d3231d5477",
+    "normalization": "json",
+    "policies": [
+      "Honor stack agent order while keeping outputs deterministic",
+      "Attach provenance hash for every run"
+    ]
+  },
+  "role": "advisor",
+  "stack_id": "kim_watson_stack",
+  "stack_version": "1.0.0"
+}

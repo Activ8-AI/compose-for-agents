@@ -1,0 +1,26 @@
+[
+  {
+    "environment": {
+      "name": "meta-mega-codex",
+      "relay_endpoint": "local",
+      "retention_days": 30,
+      "timezone": "UTC"
+    },
+    "persona": "kim",
+    "policies": [
+      "Record environment fingerprints without sensitive values",
+      "Persist run manifest under PreservationVault"
+    ],
+    "relay_artifact": "relay.json",
+    "relay_sha": "06661e53965e8369ad95c1ede531f9d91c2e945f0fcf933348ad30c689b83573",
+    "role": "advisor",
+    "runtime": {
+      "machine": "x86_64",
+      "python_version": "3.12.3",
+      "release": "6.1.147",
+      "system": "Linux"
+    },
+    "stack_id": "kim_watson_stack",
+    "timestamp": "2025-11-24T07:55:26.710305+00:00"
+  }
+]
