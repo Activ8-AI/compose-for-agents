@@ -1,0 +1,7 @@
+environment:
+  runtime: "Meta Mega Codex"
+  timezone: "UTC"
+  retention_days: 90
+  ingestion_payload_defaults:
+    scenario: "General advisory request"
+    urgency: "standard"

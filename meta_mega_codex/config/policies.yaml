@@ -1,0 +1,13 @@
+policies:
+  relay:
+    - id: "relay.enforce_invariants"
+      description: "Relay must load stacks exclusively from declarative YAML and propagate CFMS invariants downstream."
+  executor:
+    - id: "executor.normalize_outputs"
+      description: "Every agent response is emitted as structured JSON with summary, insights, actions, and risks fields."
+  logger:
+    - id: "logger.immutable_records"
+      description: "Logs are append-only and tagged with ISO timestamps plus git metadata."
+  digest:
+    - id: "digest.weekly_rollup"
+      description: "Weekly digests aggregate evaluation scores across all runs within the same ISO calendar week."
