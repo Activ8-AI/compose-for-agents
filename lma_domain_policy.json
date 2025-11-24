@@ -1,0 +1,34 @@
+{
+  "name": "LMAOS Domain Policy",
+  "version": "2025.11.24",
+  "mission": "Safeguard LMA operations with crowd-aware throttling and zero-drift code paths.",
+  "sovereign_boundaries": [
+    "Only repositories in the lmaos org are readable.",
+    "Data from Activ8 or Personal contexts must be anonymized before visualization.",
+    "Debug traces must redact user handles unless incident-severity >= 2."
+  ],
+  "determinism": {
+    "python": "3.11.9",
+    "pip_index": "https://pypi.org/simple",
+    "workflow_runner": "ubuntu-22.04",
+    "cache_namespace": "lma-governor-cache"
+  },
+  "rate_limits": {
+    "requests_per_minute": 600,
+    "burst": 120
+  },
+  "watchdogs": [
+    {
+      "name": "lma-watchdog",
+      "max_staleness_minutes": 45,
+      "escalation": "lmaos-escalations@activ8.ai"
+    }
+  ],
+  "audit": {
+    "log_targets": [
+      "logs/custodian.log",
+      "logs/genesis_trace.log"
+    ],
+    "evidence_bucket": "evidence/lma"
+  }
+}

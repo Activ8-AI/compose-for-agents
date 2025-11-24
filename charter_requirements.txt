@@ -1,0 +1,2 @@
+# The charter stack only uses the Python standard library today.
+# This file is retained to keep deterministic pip install behavior.

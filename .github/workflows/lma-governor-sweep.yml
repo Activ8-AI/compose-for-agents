@@ -1,0 +1,36 @@
+name: LMA Governor Sweep
+
+on:
+  schedule:
+    - cron: "15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  sweep:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4.7.0
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: charter_requirements.txt
+
+      - name: Install Dependencies
+        run: pip install -r charter_requirements.txt
+
+      - name: Run LMA Governor
+        env:
+          PAT_LMA: ${{ secrets.PAT_LMA }}
+        run: python lma_governor.py
+
+      - name: Upload Evidence
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: lma-evidence
+          path: |
+            evidence/
+            logs/

@@ -1,0 +1,20 @@
+{
+  "name": "Personal Copilot Policy",
+  "version": "2025.11.24",
+  "models": [
+    "gpt-4o-mini",
+    "sonnet-3.5-mini"
+  ],
+  "controls": [
+    "Offline cache only; no remote prompt logs.",
+    "Responses auto-scrubbed for accidental PII egress.",
+    "Session expirations capped at 20 minutes."
+  ],
+  "telemetry": {
+    "trace_channel": "local-only",
+    "metrics_namespace": "personal.copilot"
+  },
+  "fallbacks": [
+    "Retry once locally; skip task if deterministic hash mismatch detected."
+  ]
+}

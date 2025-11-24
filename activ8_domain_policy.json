@@ -1,0 +1,35 @@
+{
+  "name": "Activ8 AI Domain Policy",
+  "version": "2025.11.24",
+  "mission": "Enterprise-grade enforcement of Activ8 AI sovereign access and deterministic operations.",
+  "sovereign_boundaries": [
+    "Only Activ8-owned repositories listed in activ8_access_matrix are eligible targets.",
+    "Secrets tagged as PERSONAL or LMA must never be requested or cached.",
+    "All outbound network requests must pass through the Activ8 egress proxy."
+  ],
+  "activ8_access_matrix": [
+    "activ8-ai/*",
+    "activ8-governance/*",
+    "activ8-experiments/redacted"
+  ],
+  "determinism": {
+    "python": "3.11.9",
+    "pip_index": "https://pypi.org/simple",
+    "hash_seed": 1337420,
+    "workflow_runner": "ubuntu-22.04"
+  },
+  "watchdogs": [
+    {
+      "name": "activ8-l1-watchdog",
+      "max_staleness_minutes": 60,
+      "escalation": "activ8-oncall@activ8.ai"
+    }
+  ],
+  "audit": {
+    "log_targets": [
+      "logs/custodian.log",
+      "logs/genesis_trace.log"
+    ],
+    "evidence_bucket": "evidence/activ8"
+  }
+}

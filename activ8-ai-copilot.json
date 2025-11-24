@@ -1,0 +1,21 @@
+{
+  "name": "Activ8 AI Copilot Policy",
+  "version": "2025.11.24",
+  "models": [
+    "gpt-4o-mini-2024-07-18",
+    "claude-3.5-sonnet"
+  ],
+  "controls": [
+    "All prompts must include the Activ8 sovereignty preamble.",
+    "Streaming output is disabled to ensure deterministic hashing.",
+    "Caching layer is keyed by policy bundle version."
+  ],
+  "telemetry": {
+    "trace_channel": "genesis-trace",
+    "metrics_namespace": "activ8.copilot"
+  },
+  "fallbacks": [
+    "Switch to claude-3.5-sonnet if primary model SLA < 99.2%",
+    "Escalate to human custodian after two consecutive failures"
+  ]
+}

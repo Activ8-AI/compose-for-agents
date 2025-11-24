@@ -5,3 +5,11 @@
 /.cursor/
 **/init-secrets.sh
 **/secret.openai-api-key
+logs/*
+!logs/.gitkeep
+evidence/*
+!evidence/.gitkeep
+state/*
+!state/.gitkeep
+dashboard/*
+!dashboard/.gitkeep

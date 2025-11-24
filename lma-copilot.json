@@ -1,0 +1,21 @@
+{
+  "name": "LMAOS Copilot Policy",
+  "version": "2025.11.24",
+  "models": [
+    "gpt-4.1-mini",
+    "mistral-large-latest"
+  ],
+  "controls": [
+    "Prompt templates must include anonymization filters.",
+    "Rich media responses disabled in automated sweeps.",
+    "Max completion tokens capped at 800 to avoid drift."
+  ],
+  "telemetry": {
+    "trace_channel": "genesis-trace",
+    "metrics_namespace": "lma.copilot"
+  },
+  "fallbacks": [
+    "Retry with same model using exponential backoff (2 attempts).",
+    "Escalate to LMA governor runner when backoff budget exhausted."
+  ]
+}
