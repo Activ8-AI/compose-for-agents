@@ -1,0 +1,16 @@
+{
+  "clients": {
+    "wilson_case": {
+      "display_name": "Wilson Case",
+      "teamwork_project_id": "2001001",
+      "default_owner_id": "owner-ops",
+      "primary_role_id": "role:ops.wilson_case"
+    },
+    "ember_foundry": {
+      "display_name": "Ember Foundry",
+      "teamwork_project_id": "2001002",
+      "default_owner_id": "owner-strategy",
+      "primary_role_id": "role:strategy.ember"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "execution_pipeline": {
+    "competitor_reflex": "dispatch",
+    "market_reflex": "dispatch",
+    "algorithm_reflex": "dispatch",
+    "attention_reflex": "dispatch",
+    "vendor_reflex": "dispatch"
+  }
+}
