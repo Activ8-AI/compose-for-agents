@@ -230,5 +230,5 @@ def make_message_send_params(text: str) -> MessageSendParams:
     # Create the message payload based on the A2A example and your curl test
     message_id = str(uuid.uuid4())
     part = Part(root=TextPart(text=text))
-    message = Message(role=Role.user, messageId=message_id, parts=[part])
+    message = Message(role=Role.user, message_id=message_id, parts=[part])
     return MessageSendParams(message=message)
