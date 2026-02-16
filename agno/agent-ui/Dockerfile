@@ -2,8 +2,8 @@ FROM node
 
 WORKDIR /app
 
-RUN npm install --global corepack@latest
-RUN corepack enable pnpm 
+RUN corepack --version || npm install --global corepack@latest
+RUN corepack enable pnpm
 
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
