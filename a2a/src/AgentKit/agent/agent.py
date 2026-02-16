@@ -62,8 +62,8 @@ class Agent(BaseAgent, ADKBaseAgent):
             skills=self._config.skills or [],
             url=f"http://0.0.0.0:{port}/",
             version="1.0.0",
-            defaultInputModes=SUPPORTED_CONTENT_TYPES,
-            defaultOutputModes=SUPPORTED_CONTENT_TYPES,
+            default_input_modes=SUPPORTED_CONTENT_TYPES,
+            default_output_modes=SUPPORTED_CONTENT_TYPES,
         )
 
         server = A2AStarletteApplication(

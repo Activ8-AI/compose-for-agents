@@ -46,15 +46,16 @@ class ADKAgentExecutor(AgentExecutor):
         if not task:
             task = new_task(context.message)
             await event_queue.enqueue_event(task)
-        updater = TaskUpdater(event_queue, task.id, task.contextId)
+        context_id = task.context_id
+        updater = TaskUpdater(event_queue, task.id, context_id)
         # invoke the underlying agent, using streaming results. The streams
         # now are update events.
-        async for item in self.agent.stream(query, task.contextId):
+        async for item in self.agent.stream(query, context_id):
             is_task_complete = item["is_task_complete"]
             if not is_task_complete:
                 await updater.update_status(
                     TaskState.working,
-                    new_agent_text_message(item["updates"], task.contextId, task.id),
+                    new_agent_text_message(item["updates"], context_id, task.id),
                 )
                 continue
             # If the response is a dictionary, assume its a form
@@ -69,7 +70,7 @@ class ADKAgentExecutor(AgentExecutor):
                         TaskState.input_required,
                         new_agent_parts_message(
                             [Part(root=DataPart(data=data))],
-                            task.contextId,
+                            context_id,
                             task.id,
                         ),
                         final=True,
@@ -79,7 +80,7 @@ class ADKAgentExecutor(AgentExecutor):
                     TaskState.failed,
                     new_agent_text_message(
                         "Reaching an unexpected state",
-                        task.contextId,
+                        context_id,
                         task.id,
                     ),
                     final=True,
