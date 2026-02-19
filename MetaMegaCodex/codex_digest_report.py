@@ -20,6 +20,43 @@ def _load_json(path: Path) -> Dict[str, Any]:
         return {}
 
 
+def _load_criteria_weights(path: Path) -> Dict[str, float]:
+    data = _load_json(path)
+    criteria = data.get("criteria", [])
+    if not isinstance(criteria, list):
+        return {}
+
+    weights: Dict[str, float] = {}
+    for item in criteria:
+        if not isinstance(item, dict):
+            continue
+        key = item.get("key")
+        weight = item.get("weight")
+        if not isinstance(key, str) or not isinstance(weight, (int, float)):
+            continue
+        if weight < 0:
+            continue
+        weights[key] = float(weight)
+
+    total = sum(weights.values())
+    if total <= 0:
+        return {}
+    return {k: (v / total) for k, v in weights.items()}
+
+
+def _compute_overall_score(scores: Dict[str, float], weights: Dict[str, float]) -> float:
+    if not scores:
+        return 0.0
+
+    if weights:
+        weighted_pairs = [(scores[k], weights[k]) for k in scores if k in weights]
+        weight_sum = sum(w for _, w in weighted_pairs)
+        if weight_sum > 0:
+            return sum(s * w for s, w in weighted_pairs) / weight_sum
+
+    return sum(scores.values()) / len(scores)
+
+
 def _collect_run_dirs(runs_dir: Path) -> List[Path]:
     if not runs_dir.exists():
         return []
@@ -68,6 +105,7 @@ def build_digest(args: argparse.Namespace) -> Dict[str, Any]:
     vault_dir = Path(args.vault_dir)
     runs_dir = vault_dir / "runs"
     window_start = datetime.now(tz=timezone.utc) - timedelta(days=args.window_days)
+    default_weights = _load_criteria_weights(Path(__file__).with_name("codex_evaluation.json"))
 
     per_run_entries = []
     for run_dir in _collect_run_dirs(runs_dir):
@@ -78,6 +116,8 @@ def build_digest(args: argparse.Namespace) -> Dict[str, Any]:
         if not relay_manifest:
             continue
         scores = _score_run(relay_manifest)
+        weights = _load_criteria_weights(run_dir / "evaluation.json") or default_weights
+        overall_score = round(_compute_overall_score(scores, weights), 3)
         per_run_entries.append(
             {
                 "run_path": str(run_dir.relative_to(vault_dir)),
@@ -85,14 +125,21 @@ def build_digest(args: argparse.Namespace) -> Dict[str, Any]:
                 "stack_id": relay_manifest.get("stack", {}).get("id"),
                 "persona": relay_manifest.get("meta", {}).get("persona"),
                 "scores": scores,
+                "overall_score": overall_score,
             }
         )
 
+    average_overall_score = (
+        round(sum(entry["overall_score"] for entry in per_run_entries) / len(per_run_entries), 3)
+        if per_run_entries
+        else 0.0
+    )
     digest = {
         "generated_at": datetime.now(tz=timezone.utc).isoformat(),
         "window_days": args.window_days,
         "runs_considered": len(per_run_entries),
         "average_scores": _aggregate_scores(per_run_entries),
+        "average_overall_score": average_overall_score,
         "runs": per_run_entries,
     }
 
