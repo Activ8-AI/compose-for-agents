@@ -4,19 +4,15 @@ Action Matrix wiring to map reflexes onto execution pipelines.
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
-from typing import Mapping, MutableMapping, Optional
+from typing import Mapping, MutableMapping
 
-try:  # pragma: no cover - optional dependency
-    import yaml  # type: ignore
-except ImportError:  # pragma: no cover
-    yaml = None
+from structured_file import load_structured_file
 
 
 class ActionMatrix:
     def __init__(self, config_path: Path):
-        config = _load_structured_file(config_path)
+        config = load_structured_file(config_path)
         self.execution_pipeline_map: MutableMapping[str, str] = dict(
             config.get("execution_pipeline", {})
         )
@@ -32,10 +28,3 @@ class ActionMatrix:
                 raise RuntimeError("Execution pipeline not bound")
             return self._execution_pipeline.dispatch(execution_intent)
         raise KeyError(f"Reflex {reflex_name} is not mapped in the execution pipeline")
-
-
-def _load_structured_file(path: Path) -> Mapping[str, object]:
-    text = Path(path).read_text(encoding="utf-8")
-    if yaml:
-        return yaml.safe_load(text) or {}
-    return json.loads(text or "{}")

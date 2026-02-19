@@ -39,7 +39,9 @@ class TeamworkPipeline:
         self.writer = writer
         self.logger = logger
         self.notifier = notifier or NullNotifier()
-        self.sprint_reflexes = set(sprint_reflexes or self.DEFAULT_SPRINT_REFLEXES)
+        self.sprint_reflexes = set(
+            sprint_reflexes if sprint_reflexes is not None else self.DEFAULT_SPRINT_REFLEXES
+        )
 
     def dispatch(self, execution_intent: Mapping[str, Any] | ExecutionIntent) -> Mapping[str, Any]:
         intent = (

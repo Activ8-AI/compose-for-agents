@@ -4,15 +4,11 @@ Client matrix loader that maps MAOS client identifiers to Teamwork metadata.
 
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Mapping, Optional
 
-try:  # pragma: no cover - optional dependency
-    import yaml  # type: ignore
-except ImportError:  # pragma: no cover - optional dependency
-    yaml = None
+from structured_file import load_structured_file
 
 
 @dataclass(frozen=True, slots=True)
@@ -33,7 +29,7 @@ class ClientMatrix:
 
     @classmethod
     def from_file(cls, path: Path) -> "ClientMatrix":
-        data = _load_structured_file(path)
+        data = load_structured_file(path)
         clients_section = data.get("clients", {})
         clients: Dict[str, ClientProfile] = {}
         for client_id, payload in clients_section.items():
@@ -46,10 +42,3 @@ class ClientMatrix:
             )
             clients[client_id] = profile
         return cls(clients)
-
-
-def _load_structured_file(path: Path) -> Mapping[str, object]:
-    text = Path(path).read_text(encoding="utf-8")
-    if yaml:
-        return yaml.safe_load(text) or {}
-    return json.loads(text or "{}")

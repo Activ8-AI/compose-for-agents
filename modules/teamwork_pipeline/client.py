@@ -76,7 +76,7 @@ class TeamworkHTTPClient:
             payload["todo-item"]["due-date"] = due.replace("-", "")
         if assignee_id:
             payload["todo-item"]["responsible-party-ids"] = assignee_id
-        data = self._request("POST", "/tasks.json", payload)
+        data = self._request("POST", f"/projects/{project_id}/tasks.json", payload)
         return str(data.get("id") or data.get("todo-item", {}).get("id"))
 
     def create_subtask(
@@ -96,7 +96,7 @@ class TeamworkHTTPClient:
         }
         if assignee_id:
             payload["todo-item"]["responsible-party-ids"] = assignee_id
-        data = self._request("POST", "/tasks.json", payload)
+        data = self._request("POST", f"/tasks/{parent_id}.json", payload)
         return str(data.get("id") or data.get("todo-item", {}).get("id"))
 
     def create_sprint(self, *, project_id: str, name: str, tasks: Sequence[str]) -> str:
