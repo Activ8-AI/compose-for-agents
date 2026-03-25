@@ -62,7 +62,7 @@
       "id": "mcp_health_ceiling",
       "metric": "mcp_health_status",
       "block_threshold": 200,
-      "operator": "equals",
+      "operator": "not_equals",
       "owner": "OpsAgent",
       "action": "Do not promote traffic when MCP health is not healthy."
     }
