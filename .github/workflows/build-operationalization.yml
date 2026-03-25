@@ -7,7 +7,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "17 * * * *"
+    - cron: 17 * * * *
   workflow_dispatch:
 
 permissions:
@@ -21,7 +21,7 @@ jobs:
     env:
       NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
       WRITEBACK_BRANCH: auto/build-operationalization-writeback
-      WRITEBACK_TITLE: "chore(governance): write back build operationalization self-sync"
+      WRITEBACK_TITLE: chore(governance): write back build operationalization self-sync
       WRITEBACK_GATE_ID: gate.build_operationalization_writeback
 
     steps:
@@ -45,8 +45,8 @@ jobs:
         if: steps.npm_lockfile.outputs.path != ''
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: 20
+          cache: npm
           cache-dependency-path: ${{ steps.npm_lockfile.outputs.path }}
 
       - name: Set up Node.js
@@ -67,8 +67,10 @@ jobs:
 
       - name: Run build operationalization guard
         run: |
-          if [ -f package.json ]; then
+          if [ "${{ steps.npm_lockfile.outputs.path }}" = "package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('package.json','utf8')).scripts || {}, 'operationalize:build')")" = "true" ]; then
             npm run operationalize:build
+          elif [ "${{ steps.npm_lockfile.outputs.path }}" = "mcp-server/package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('mcp-server/package.json','utf8')).scripts || {}, 'operationalize:build')")" = "true" ]; then
+            npm --prefix mcp-server run operationalize:build
           else
             node scripts/build-operationalization-check.mjs
           fi
@@ -79,21 +81,27 @@ jobs:
         run: |
           if [ "${EVENT_NAME}" = "pull_request" ]; then
             echo "pull_request event detected; running buildwide operationalization in dry-run mode."
-            if [ -f package.json ]; then
+            if [ "${{ steps.npm_lockfile.outputs.path }}" = "package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('package.json','utf8')).scripts || {}, 'operationalize:repo')")" = "true" ]; then
               npm run operationalize:repo -- --dry-run
+            elif [ "${{ steps.npm_lockfile.outputs.path }}" = "mcp-server/package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('mcp-server/package.json','utf8')).scripts || {}, 'operationalize:repo')")" = "true" ]; then
+              npm --prefix mcp-server run operationalize:repo -- --dry-run
             else
               node scripts/operationalize-buildwide.mjs --dry-run
             fi
           elif [ -n "${NOTION_API_TOKEN:-}" ]; then
-            if [ -f package.json ]; then
+            if [ "${{ steps.npm_lockfile.outputs.path }}" = "package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('package.json','utf8')).scripts || {}, 'operationalize:repo')")" = "true" ]; then
               npm run operationalize:repo -- --with-sync --update-performance
+            elif [ "${{ steps.npm_lockfile.outputs.path }}" = "mcp-server/package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('mcp-server/package.json','utf8')).scripts || {}, 'operationalize:repo')")" = "true" ]; then
+              npm --prefix mcp-server run operationalize:repo -- --with-sync --update-performance
             else
               node scripts/operationalize-buildwide.mjs --with-sync --update-performance
             fi
           else
             echo "NOTION_API_TOKEN not configured; falling back to dry-run."
-            if [ -f package.json ]; then
+            if [ "${{ steps.npm_lockfile.outputs.path }}" = "package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('package.json','utf8')).scripts || {}, 'operationalize:repo')")" = "true" ]; then
               npm run operationalize:repo -- --dry-run
+            elif [ "${{ steps.npm_lockfile.outputs.path }}" = "mcp-server/package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('mcp-server/package.json','utf8')).scripts || {}, 'operationalize:repo')")" = "true" ]; then
+              npm --prefix mcp-server run operationalize:repo -- --dry-run
             else
               node scripts/operationalize-buildwide.mjs --dry-run
             fi
@@ -101,8 +109,10 @@ jobs:
 
       - name: Run action persistence self-check
         run: |
-          if [ -f package.json ]; then
+          if [ "${{ steps.npm_lockfile.outputs.path }}" = "package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('package.json','utf8')).scripts || {}, 'action-persistence:check')")" = "true" ]; then
             npm run action-persistence:check
+          elif [ "${{ steps.npm_lockfile.outputs.path }}" = "mcp-server/package-lock.json" ] && [ "$(node -p "Object.prototype.hasOwnProperty.call(JSON.parse(require('fs').readFileSync('mcp-server/package.json','utf8')).scripts || {}, 'action-persistence:check')")" = "true" ]; then
+            npm --prefix mcp-server run action-persistence:check
           else
             node scripts/action-persistence-self-check.mjs
           fi
