@@ -5,8 +5,8 @@ description = "ADK DMR agent and Cerebras endpoint"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "google-adk>=1.5.0",
-    "litellm>=1.73.6",
+    "google-adk>=1.28.1",
+    "litellm>=1.83.0",
 ]
 
 [dependency-groups]
